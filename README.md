@@ -16,6 +16,6 @@ pip install -r requirements.txt
 ```
 
 При установки может выдаваться в терминале что-то по типу "A new release of pip is available:", тогда просто введите предложенную команду для обновления pip.<br>
-Команды также написаны в верху файла text_from_the_image.py.<br>
+Команды также написаны вверху файла text_from_the_image.py.<br>
 
 </p>
