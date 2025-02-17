@@ -14,16 +14,19 @@ def recognize_text(path_file, languages, cur_page):
 
     :param path_file: путь к картинке, с которой будет распознаваться текст
     :param languages: языки, которые будут искаться
-    :param cur_page:  текущая страница документа
+    :param cur_page:  текущая страница документа (отсчет идет от кол-ва распрарсенных страниц, а не с книжных страниц)
     """
 
-    print(f'{cur_page}) {"_" * 30}')
-    print(str(pytesseract.image_to_string(Image.open(path_file), lang=languages)).strip())
-    print('\n\n')
+    print(f'Начало {cur_page} Страницы{"_" * 50}')
+    im = Image.open(path_file)
+    text = str(pytesseract.image_to_string(im, lang=languages)).strip()
+    print(text)
+    print(f'Конец {cur_page} Страницы{"_" * 50}\n\n')
 
 
 def convert_pdf_to_images(path_pdf, output_folder, languages):
     """
+    pdf файл конвертируется, а после
     из каждой страницы файла получается картинка,
     которая передается потом в функцию recognize_text для распознавания текста
 
@@ -32,7 +35,7 @@ def convert_pdf_to_images(path_pdf, output_folder, languages):
     :param languages: языки, которые могут быть в файле
     """
 
-    images = convert_from_path(path_pdf, first_page=1, last_page=5, dpi=300)
+    images = convert_from_path(path_pdf, first_page=1, last_page=10, dpi=300)
     for i, image in enumerate(images):
         path_save = os.path.join(output_folder, f"page_{i + 1}.png")
         image.save(path_save, "PNG")
@@ -43,7 +46,7 @@ def convert_pdf_to_images(path_pdf, output_folder, languages):
 def main():
     """
      pdf_file - путь к pdf файлу
-     out_folder - путь, где будут лежать картинки-страницы pdf файла
+     out_folder - путь, где будут лежать картинки-страницы pdf файла (после распознавания текста они удаляются)
      languages_for_doc - языки, которые могут быть в файле
     """
 
