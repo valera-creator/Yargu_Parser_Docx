@@ -8,6 +8,15 @@ import pytesseract
 import os
 
 
+def check_correct_file(path_file):
+    """проверка на то что файл существует и является pdf"""
+
+    if not os.path.exists(path_file):
+        quit(f"Ошибка: pdf файл по пути {path_file} не найден")
+    if not path_file.endswith('.pdf'):
+        quit('Ошибка: файл должен иметь расширение .pdf')
+
+
 def recognize_text(path_file, languages, cur_page):
     """
     из картинки с помощью библиотеки pytesseract распознается текст и печатается на экран (пока что на экран)
@@ -35,7 +44,7 @@ def convert_pdf_to_images(path_pdf, output_folder, languages):
     :param languages: языки, которые могут быть в файле
     """
 
-    images = convert_from_path(path_pdf, first_page=1, last_page=10, dpi=300)
+    images = convert_from_path(path_pdf, first_page=1, last_page=2, dpi=300)
     for i, image in enumerate(images):
         path_save = os.path.join(output_folder, f"page_{i + 1}.png")
         image.save(path_save, "PNG")
@@ -53,6 +62,8 @@ def main():
     path_pdf_file = os.path.join('test_files', 'file_1.pdf')
     out_folder = 'test_files'
     languages_for_doc = 'eng+rus'
+
+    check_correct_file(path_pdf_file)
     convert_pdf_to_images(path_pdf_file, out_folder, languages_for_doc)
 
 
