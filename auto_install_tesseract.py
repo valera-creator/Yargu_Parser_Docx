@@ -105,6 +105,8 @@ def begin_install_tesseract():
         print('Внесите изменение переменных среды PATH самостоятельно.')
         return
 
+    print(path_install)
+
 
 if __name__ == "__main__":
     begin_install_tesseract()
