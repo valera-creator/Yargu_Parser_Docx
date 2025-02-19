@@ -3,6 +3,7 @@ import subprocess
 import sys
 import ctypes
 import urllib.request
+import winreg
 import shutil
 
 
@@ -61,6 +62,25 @@ def run_tesseract_installer(installer_path):
         quit()
 
 
+def get_tesseract_installation_path():
+    """
+    Определяет путь установки Tesseract через реестр Windows.
+    """
+    try:
+        # Открываем раздел реестра, где хранится информация о Tesseract
+        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Tesseract-OCR")
+        # Получаем значение пути установки
+        install_path, _ = winreg.QueryValueEx(key, "InstallDir")
+        winreg.CloseKey(key)
+        return install_path
+    except FileNotFoundError:
+        print("Не удалось найти путь установки Tesseract в реестре.")
+        return None
+    except Exception as e:
+        print(f"Ошибка при чтении реестра: {e}")
+        return None
+
+
 def begin_install_tesseract():
     """
     функция проверяет права администратора и при необходимости запрашивает их.
@@ -78,6 +98,12 @@ def begin_install_tesseract():
 
     download_tesseract_installer(tesseract_url, installer_path)
     run_tesseract_installer(installer_path)
+    path_install = get_tesseract_installation_path()
+
+    if not path_install:
+        print('Произошла ошибка при автоматическом определении пути установки Tesseract.')
+        print('Внесите изменение переменных среды PATH самостоятельно.')
+        return
 
 
 if __name__ == "__main__":
