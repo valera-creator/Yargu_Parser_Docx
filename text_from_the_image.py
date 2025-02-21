@@ -11,7 +11,7 @@ import os
 def check_correct_file(path_file):
     """проверка на то что файл существует и является pdf"""
     if not os.path.exists(path_file):
-        quit(f"Ошибка: pdf файл по пути {path_file} не найден")
+        quit(f"Ошибка: pdf файл по пути {path_file} не найден.")
     if not path_file.endswith('.pdf'):
         quit('Ошибка: файл должен иметь расширение .pdf')
 
