@@ -24,6 +24,10 @@ def recognize_text_easy_ocr(path_pdf_file, path_image, reader, cur_page, method)
         image=path_image,  # путь к изображению
         paragraph=True,  # объединение в параграфы
         detail=0,  # детализация: с 0 вернется только текст
+        mag_ratio=1.5,  # коэффициент увеличения изображения
+        add_margin=0.1,  # добавление маргина для улучшения распознавания
+        min_size=1,  # минимальный размер текстового блока
+        beamWidth=7,  # ширина лучевого поиска (чем больше, тем точнее)
     )
 
     # запись в файл
