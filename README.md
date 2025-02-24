@@ -1,14 +1,18 @@
 # Распознаватель текста с pdf-документов
 
-Для установки библиотек: 
+<h4>Установка библиотек</h4>
 ```
 pip install -r requirements.txt
 ```
+<hr>
 
+<h4>Реализация.</h4>
+Программа реализовывалась на Windows.
+В ней доступно 2 разных способа распознавания: через Tesseract и через Easyocr.
+<hr>
 
-Программа реализовывалась на Windows.<br>
-В ней доступно 2 разных способа распознавания: через Tesseract и через easyocr.<br>
-<b>Перед запуском Tesseract необходимо дополнительно установить и настроить 2 программы:</b><br>
+<h4>Установка вручную и настройка для Tesseract.</h4>
+<b>Перед запуском распознавания через Tesseract необходимо дополнительно установить и настроить 2 программы:</b>
 
 1) Необходимо перейти по 
 <a href="https://tesseract-ocr.github.io/tessdoc/Installation.html">ссылке</a> и скачать к себе Tesseract.<br>
@@ -24,6 +28,7 @@ pip install -r requirements.txt
 Команды также написаны в верху файла text_from_the_image.py.<hr>
 
 
+<h4>Языки</h4>
 Чтобы узнать, как какой язык называется, можно ввести в терминале команду:
 ```
 tesseract --list-langs
@@ -32,16 +37,18 @@ tesseract --list-langs
 Языки также можно комбинировать, вот пример, как это можно сделать: "eng+rus"
 
 <hr>
-<b>Автоматическая установка Tesseract</b><br>
+<h4>Автоматическая установка Tesseract</h4>
 Если вы хотите начать установку Tesseract с помощью программы, то Вы можете это сделать, запустив от имени администратора файл auto_install_tesseract.py. <br>
 Не забудьте настроить нужные языки в процессе установки.<br>
 <b>После установки Ваше устройство будет перезагружено.</b>
 
 <hr>
-Перед запуском распознавания через easyocr необходимо скачать <a href="https://github.com/oschwartz10612/poppler-windows/releases">конвертор pdf в image</a> и бибилотеки в окружении.<br>
-Для использования GPU в распознавании от ошибки я ввел это в терминал:
+<h4>Easyocr</h4>
+Перед запуском распознавания через easyocr необходимо скачать <a href="https://github.com/oschwartz10612/poppler-windows/releases">конвертор pdf в image</a> и следовать рекомендациям для Poppler про путь<br>(2 пункт про "Установка вручную и настройка для Tesseract", Poppler необходимо везде настроить одинаково).<br><br>
+Для использования GPU в распознавании от ошибки (Neither CUDA nor MPS are available - defaulting to CPU. Note: This module is much faster with a GPU.) я ввел это в терминал:
 
 ```
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
 
+<hr>
