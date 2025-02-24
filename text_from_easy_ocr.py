@@ -22,9 +22,9 @@ def write_text(path_pdf_file, text):
         file.write(text)
 
 
-def recognize_text(path_pdf_file, path_image, reader, cur_page):
+def recognize_text_easy_ocr(path_pdf_file, path_image, reader, cur_page):
     """
-    из картинки с помощью библиотеки pytesseract распознается текст и печатается на экран (пока что на экран)
+    из картинки с помощью библиотеки pytesseract распознается текст и записывается в файл.txt
 
     :param path_pdf_file: путь к pdf файлу
     :param path_image: путь к картинке, с которой будет распознаваться текст
@@ -65,7 +65,7 @@ def convert_pdf_to_images(path_pdf_file, output_folder, reader):
     for i, image in enumerate(images):
         path_save = os.path.join(output_folder, f"page_{i + 1}.png")
         image.save(path_save, "PNG")
-        recognize_text(path_pdf_file, path_save, reader, i + 1)
+        recognize_text_easy_ocr(path_pdf_file, path_save, reader, i + 1)
         os.remove(path_save)
 
 
