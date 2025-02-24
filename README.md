@@ -7,7 +7,8 @@ pip install -r requirements.txt
 
 
 Программа реализовывалась на Windows.<br>
-<b>Перед запуском программы необходимо дополнительно установить и настроить 2 программы:</b><br>
+В ней доступно 2 разных способа распознавания: через Tesseract и через easyocr.<br>
+<b>Перед запуском Tesseract необходимо дополнительно установить и настроить 2 программы:</b><br>
 
 1) Необходимо перейти по 
 <a href="https://tesseract-ocr.github.io/tessdoc/Installation.html">ссылке</a> и скачать к себе Tesseract.<br>
@@ -35,4 +36,12 @@ tesseract --list-langs
 Если вы хотите начать установку Tesseract с помощью программы, то Вы можете это сделать, запустив от имени администратора файл auto_install_tesseract.py. <br>
 Не забудьте настроить нужные языки в процессе установки.<br>
 <b>После установки Ваше устройство будет перезагружено.</b>
+
+<hr>
+Перед запуском через easyocr необходимо скачать <a href="https://github.com/oschwartz10612/poppler-windows/releases"> по ссылке</a> программу и бибилотеки.<br>
+Для использования GPU в распознавании от ошибки я ввел это в терминал:
+
+```
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
 
