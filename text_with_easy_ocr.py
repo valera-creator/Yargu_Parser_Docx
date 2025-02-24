@@ -2,6 +2,7 @@
 # pip install pdf2image
 import easyocr
 from pdf2image import convert_from_path
+import torch
 import os
 import re
 
@@ -83,12 +84,12 @@ def main():
     languages_for_doc = ['ru', 'en']
 
     print('проверка доступа gpu...')
-    # gpu = True if torch.cuda.is_available() else False
+    gpu = True if torch.cuda.is_available() else False
 
     print('запуск reader...')
-    reader = easyocr.Reader(languages_for_doc, gpu=True)
+    reader = easyocr.Reader(languages_for_doc, gpu=gpu)
 
-    print('работа с файлом...')
+    print(f'работа с файлом...')
     check_correct_file(path_pdf_file)
     convert_pdf_to_images(path_pdf_file, out_folder, reader)
 
