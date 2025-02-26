@@ -1,4 +1,5 @@
 import os
+import argparse
 
 
 def check_correct_file(path_file):
@@ -17,3 +18,7 @@ def write_text(path_pdf_file, text, method):
     path_file_txt = os.path.join('results', path_file_txt)
     with open(path_file_txt, mode='a', encoding='utf-8') as file:
         file.write(text)
+
+
+def parse_terminal():
+    pass

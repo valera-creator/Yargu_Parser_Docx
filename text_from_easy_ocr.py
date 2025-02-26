@@ -2,7 +2,7 @@
 # pip install pdf2image
 import easyocr
 from pdf2image import convert_from_path
-from common_functions import check_correct_file, write_text
+from common_functions import check_correct_file, write_text, parse_terminal
 import torch
 import os
 import re
