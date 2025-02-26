@@ -9,8 +9,14 @@ pip install -r requirements.txt
 <hr>
 
 <h4>Реализация.</h4>
-Программа реализовывалась на Windows.
-В ней доступно 2 разных способа распознавания: через Tesseract и через Easyocr.
+<ul>
+    <li>
+        Программа реализовывалась на Windows.
+    </li>
+    <li>
+        В ней доступно 2 разных способа распознавания: через Tesseract и через Easyocr.
+    </li>
+</ul>
 <hr>
 
 <h4>Установка вручную и настройка для Tesseract.</h4>
@@ -26,8 +32,16 @@ pip install -r requirements.txt
 Затем необходимо в переменную среды PATH по аналогии добавить новую переменную: прописать путь к папке, в которой лежит Poppler, но в этот раз к bin, которая находится где-то в этой папке.<br>
 
 3) После прописания в PATH желательно перезагрузить устройство, чтобы все сработало.<br><br>
-При установке может выдаваться в терминале что-то по типу "A new release of pip is available:", тогда просто введите предложенную команду для обновления pip.<br>
-Команды также написаны в верху файла text_from_the_image.py.<hr>
+
+<ul>
+    <li>
+        При установке может выдаваться в терминале что-то по типу "A new release of pip is available:", тогда просто введите предложенную команду для обновления pip.
+    </li>
+    <li>
+        Команды также написаны в верху файла text_from_the_image.py.
+    </li>
+</ul>
+<hr>
 
 
 <h4>Языки</h4>
@@ -41,17 +55,34 @@ tesseract --list-langs
 
 <hr>
 <h4>Автоматическая установка Tesseract</h4>
-Если вы хотите начать установку Tesseract с помощью программы, то Вы можете это сделать, запустив от имени администратора файл auto_install_tesseract.py. <br>
-Не забудьте настроить нужные языки в процессе установки.<br>
-<b>После установки Ваше устройство будет перезагружено.</b>
+<ul>
+    <li>
+        Если вы хотите начать установку Tesseract с помощью программы, то Вы можете это сделать, запустив от имени администратора файл auto_install_tesseract.py.
+    </li>
+    <li>
+        Не забудьте настроить нужные языки в процессе установки.
+    </li>
+    <li>
+        <b>После установки Ваше устройство будет перезагружено.</b>
+    </li>
+</ul>
+
 
 <hr>
 <h4>Easyocr</h4>
-Перед запуском распознавания через easyocr необходимо скачать <a href="https://github.com/oschwartz10612/poppler-windows/releases">конвертор pdf в image</a> и следовать рекомендациям для Poppler про путь<br>(2 пункт про "Установка вручную и настройка для Tesseract", Poppler необходимо везде настроить одинаково).<br><br>
-Для использования GPU в распознавании от ошибки (Neither CUDA nor MPS are available - defaulting to CPU. Note: This module is much faster with a GPU.) я ввел это в терминал:
+<ul>
+    <li>
+        Перед запуском распознавания через easyocr необходимо скачать <a href="https://github.com/oschwartz10612/poppler-windows/releases">конвертор pdf в image</a> и следовать рекомендациям для Poppler про путь<br>(2 пункт про "Установка вручную и настройка для Tesseract", Poppler необходимо везде настроить одинаково).
+    </li>
+    <li>
+        Для использования GPU в распознавании от ошибки (Neither CUDA nor MPS are available - defaulting to CPU. Note: This module is much faster with a GPU.) я ввел это в терминал:
 
 ```
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
+    
+</li>
 
+
+</ul>
 <hr>
