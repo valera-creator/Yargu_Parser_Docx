@@ -54,7 +54,7 @@ pip install -r requirements.txt
 <hr>
 
 
-<h4>Языки</h4>
+<h4>Языки.</h4>
 
 <ul>
 <li>
@@ -74,7 +74,7 @@ tesseract --list-langs
 
 
 <hr>
-<h4>Автоматическая установка Tesseract</h4>
+<h4>Автоматическая установка Tesseract.</h4>
 <ul>
     <li>
         Если вы хотите начать установку Tesseract с помощью программы, то Вы можете это сделать, запустив от имени администратора файл auto_install_tesseract.py.
@@ -89,7 +89,7 @@ tesseract --list-langs
 
 
 <hr>
-<h4>Easyocr</h4>
+<h4>Easyocr.</h4>
 <ul>
     <li>
         Перед запуском распознавания через easyocr необходимо скачать <a href="https://github.com/oschwartz10612/poppler-windows/releases">конвертор pdf в image</a> и следовать рекомендациям для Poppler про путь<br>(2 пункт про "Установка вручную и настройка для Tesseract", Poppler необходимо везде настроить одинаково).
@@ -104,5 +104,19 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 </li>
 
 
+</ul>
+<hr>
+<h4>Запуск программы.</h4>
+<ul>
+    <li>Программа запускается через терминал, ниже примеры запусков</li>
+    <li>python text_from_tesseract.py --languages rus eng --path test_files/file_1.pdf --first_page 1 --last_page 5</li>
+    <li>python text_from_easy_ocr.py --languages ru en --path test_files/file_1.pdf --first_page 1 --last_page 5</li>
+    <br>
+    <li>--languages: языки в документе, которые надо распознать (обязательно к передаче в программу)</li>
+    <li>--path: путь к pdf файлу (обязательно к передаче в программу)</li>
+    <li>--first_page: первая страница, с которой начать распознавание текста (необязательно к передаче, по дефолту стоит первая страница)</li>
+    <li>--last_page: последняя страница, до которой распознавать текст (включительно), (необязательно к передаче, по дефолту стоит последняя страница в документу)</li>
+    <br>
+    <li>Не забывайте про разницу обозначения языков для каждого способа распознавания</li>
 </ul>
 <hr>
