@@ -49,7 +49,7 @@ def parse_terminal():
     parser.add_argument('--first_page', default=None, type=int)
     parser.add_argument('--last_page', default=None, type=int)
     parser.add_argument('--languages', nargs="*", default=[])
-    parser.add_argument('--path', type=str)
+    parser.add_argument('--path', type=str, default='')
 
     args = parser.parse_args()
     return args.first_page, args.last_page, args.languages, args.path
