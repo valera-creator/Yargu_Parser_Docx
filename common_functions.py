@@ -10,17 +10,22 @@ def check_correct_file(path_file):
         quit('Ошибка: файл должен иметь расширение .pdf')
 
 
-def check_correct_data(lang, path):
+def check_correct_data(lang, path, first_page, last_page, is_check_lang=True):
     """
     функция проверяет корректность переданных данных
     :param lang: язык в документе
     :param path: путь к pdf-файлу
+    :param first_page: первая страница, с которой распознавать текст
+    :param last_page: последняя страница, до которой распознавать текст (включительно)
+    :param is_check_lang: флаг на то что нужно ли проверять, переданы ли языки
 
     """
-    if not lang:
-        quit('передайте язык/языки, который/которые нужно распознать в документе')
+    if not lang and is_check_lang:
+        quit('ошибка: передайте язык/языки, который/которые нужно распознать в документе')
     if path is None:
-        quit('передайте путь к файлу, откуда нужно достать текст')
+        quit('ошибка: передайте путь к файлу, откуда нужно достать текст')
+    if first_page is not None and last_page is not None and first_page > last_page:
+        quit('ошибка: номер последней страницы меньше первой')
 
 
 def write_text(path_pdf_file, text, method):
@@ -38,11 +43,12 @@ def parse_terminal():
     # примеры запусков программы через терминал:
     # python text_from_tesseract.py --languages rus eng --path test_files/file_1.pdf --first_page 1 --last_page 5
     # python text_from_easy_ocr.py --languages ru en --path test_files/file_1.pdf --first_page 1 --last_page 5
+    # python text_from_layer_pdf.py --path test_files/ReadA1.pdf
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--first_page', default=None, type=int)
     parser.add_argument('--last_page', default=None, type=int)
-    parser.add_argument('--languages', nargs="*", default=['en', 'ru'])
+    parser.add_argument('--languages', nargs="*", default=[])
     parser.add_argument('--path', type=str)
 
     args = parser.parse_args()

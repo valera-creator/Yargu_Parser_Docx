@@ -77,7 +77,8 @@ def main():
     first_page, last_page, languages, path_pdf_file = parse_terminal()
     languages = '+'.join(languages)
 
-    check_correct_data(languages, path_pdf_file)
+    check_correct_data(lang=languages, path=path_pdf_file, first_page=first_page, last_page=last_page,
+                       is_check_lang=True)
     check_correct_file(path_pdf_file)
     convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, languages, method)
 

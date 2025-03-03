@@ -14,7 +14,7 @@ pip install -r requirements.txt
         Программа реализовывалась на Windows.
     </li>
     <li>
-        В ней доступно 2 разных способа распознавания: через Tesseract и через Easyocr.
+        В ней доступно 3 разных способа распознавания: через Tesseract, через Easyocr и через снятие текстового слоя (для pdf, у которых текст можно выделить при попытке скопировать его).
     </li>
 </ul>
 <hr>
@@ -68,6 +68,7 @@ tesseract --list-langs
 <li>Языки (в Tesseract) также можно комбинировать, вот пример, как это можно сделать: "eng+rus"</li>
 <li>В Easyocr можно посмотреть языки здесь: https://www.jaided.ai/easyocr/</li>
 <li>Языки (в Easyocr) можно комбинировать, добавив в список несколько языков</li>
+<li>При распознавании с текстовым слоем (text_from_layer_pdf.py) язык передавать не нужно</li>
 </ul>
 
 
@@ -111,12 +112,14 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
     <li>Программа запускается через терминал, ниже примеры запусков</li>
     <li>python text_from_tesseract.py --languages rus eng --path test_files/file_1.pdf --first_page 1 --last_page 5</li>
     <li>python text_from_easy_ocr.py --languages ru en --path test_files/file_1.pdf --first_page 1 --last_page 5</li>
+    <li>python text_from_layer_pdf.py --path test_files/file_1.pdf --first_page 1 --last_page 5</li>
     <br>
-    <li>--languages: языки в документе, которые надо распознать (обязательно к передаче в программу)</li>
+    <li>--languages: языки в документе, которые надо распознать (обязательно к передаче в программу, если не запускаете text_from_layer_pdf.py)</li>
+    <li>при запуске text_from_layer_pdf.py языки передавать не нужно</li>
     <li>--path: путь к pdf файлу (обязательно к передаче в программу)</li>
     <li>--first_page: первая страница, с которой начать распознавание текста (необязательно к передаче, по дефолту стоит первая страница)</li>
     <li>--last_page: последняя страница, до которой распознавать текст (включительно), (необязательно к передаче, по дефолту стоит последняя страница в документу)</li>
     <br>
-    <li>Не забывайте про разницу обозначения языков для каждого способа распознавания</li>
+    <li>Не забывайте про разницу обозначения языков для способов распознавания через tesseract и easyocr</li>
 </ul>
 <hr>

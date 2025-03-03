@@ -85,7 +85,8 @@ def main():
     method = '[e]'
 
     first_page, last_page, languages, path_pdf_file = parse_terminal()
-    check_correct_data(languages, path_pdf_file)
+    check_correct_data(lang=languages, path=path_pdf_file, first_page=first_page, last_page=last_page,
+                       is_check_lang=True)
 
     print('проверка доступа gpu...')
     gpu = True if torch.cuda.is_available() else False
