@@ -61,6 +61,7 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, re
             cur_page = i + 1
         else:
             cur_page = first_page + i
+
         path_save = os.path.join(image_folder, f"page_{cur_page}.png")
         image.save(path_save, "PNG")
         recognize_text_easy_ocr(path_pdf_file, path_save, reader, cur_page, method)

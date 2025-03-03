@@ -3,7 +3,11 @@ import argparse
 
 
 def check_correct_file(path_file):
-    """проверка на то что файл существует и является pdf"""
+    """
+    проверка на то что файл существует и является pdf
+    :param path_file: путь к pdf файлу
+    """
+
     if not os.path.exists(path_file):
         quit(f"Ошибка: pdf файл по пути {path_file} не найден.")
     if not path_file.endswith('.pdf'):
@@ -29,7 +33,13 @@ def check_correct_data(lang, path, first_page, last_page, is_check_lang=True):
 
 
 def write_text(path_pdf_file, text, method):
-    """запись текста в текстовый файл с названием pdf документа, но с расширением .txt"""
+    """
+    запись текста в текстовый файл с названием pdf документа, но с расширением .txt
+    :param path_pdf_file: путь к pdf файлу
+    :param text: текст, который надо записать
+    :param method: приписывание к названию файла метода, с помощью которого был получен текст
+    """
+
     path_file_txt = os.path.splitext(path_pdf_file)[0] + '.txt'
     path_file_txt = os.path.basename(path_file_txt)
     path_file_txt = method + path_file_txt
