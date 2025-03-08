@@ -5,11 +5,11 @@ from common_functions import write_text
 
 def convert_num_pages(first_page, last_page, pdf):
     """
-    функция подстраивает по питон значения номеров первой и последней страницы
+     Функция преобразует номера первой и последней страницы для корректной работы с индексацией Python.
 
-    :param first_page: первая страница для получения текста
-    :param last_page: последняя страница для получения текста (включительно)
-    :param pdf: список со объектами
+    :param first_page: номер первой страницы для получения текста
+    :param last_page: номер последней страницы для получения текста (включительно)
+    :param pdf: список со объектами страниц pdf
 
     :return: преобразованное под индексацию значение первой и последней страницы
     """
@@ -27,26 +27,28 @@ def convert_num_pages(first_page, last_page, pdf):
     return first_page, last_page
 
 
-def receive_text(path_pdf, first_page, last_page):
+def receive_text(path_pdf_file, first_page, last_page):
     """
-    функция получает текст со страниц и записывает его в txt файл
+    Функция извлекает текст из указанных страниц PDF-файла и записывает его в текстовый файл.
+    Результат записывается в текстовый файл с тем же именем, что и PDF-файл, но с расширением .txt.
 
-    :param path_pdf: путь к pdf файлу
+    :param path_pdf_file: путь к pdf файлу
     :param first_page: первая страница
     :param last_page: последняя страница
+
     method - метод получения текста (в данном случае с помощью доставания текстового слоя, [l])
     """
 
     method = '[l]'
-    with pdfplumber.open(path_pdf) as pdf:
+    with pdfplumber.open(path_pdf_file) as pdf:
         first_page, last_page = convert_num_pages(first_page, last_page, pdf)
 
         for page in range(first_page, last_page):
             print(f'\nНачало страницы {page + 1} {"_" * 50}')
 
             text = pdf.pages[page].extract_text()
-            write_text(path_pdf, f'\nНачало страницы {page + 1}{"_" * 50}\n', method)
-            write_text(path_pdf, text, method)
-            write_text(path_pdf, f'\nКонец страницы {page + 1}{"_" * 50}\n', method)
+            write_text(path_pdf_file, f'\nНачало страницы {page + 1}{"_" * 50}\n', method)
+            write_text(path_pdf_file, text, method)
+            write_text(path_pdf_file, f'\nКонец страницы {page + 1}{"_" * 50}\n', method)
 
             print(f'Конец страницы {page + 1} {"_" * 50}\n')
