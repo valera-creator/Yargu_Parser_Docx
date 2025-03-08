@@ -2,7 +2,7 @@
 # pip install pdf2image
 import easyocr
 from pdf2image import convert_from_path
-from common_functions import check_correct_file, write_text, parse_terminal, check_correct_data
+from common_functions import write_text
 import torch
 import os
 import re
@@ -68,26 +68,20 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, re
         os.remove(path_save)
 
 
-def main():
+def start_easy_ocr(path_pdf_file, first_page, last_page, languages):
     """
-    перед запуском программы настройте это:
-
     image_folder - путь, где будут лежать картинки-страницы pdf файла
     (после распознавания текста они удаляются) и файл.txt с текстом
-    method = [e] - с помощью easyocr
+    method - метод распознавания текста
 
-    first_page - первая страница документа, с которой получать текст
-    last_page - последняя страница документа, до которой получать текст
-    languages - языки, которые могут быть в файле
-    path_pdf_file - путь к pdf файлу
+    :param path_pdf_file: путь к pdf файлу
+    :param first_page: первая страница, с которой распознавать текст
+    :param last_page: последняя страница, до которой распознавать текст (включительно)
+    :param languages: языки, которые искать в документе
     """
 
-    image_folder = 'test_files'
     method = '[e]'
-
-    first_page, last_page, languages, path_pdf_file = parse_terminal()
-    check_correct_data(lang=languages, path=path_pdf_file, first_page=first_page, last_page=last_page,
-                       is_check_lang=True)
+    image_folder = 'test_files'
 
     print('проверка доступа gpu...')
     gpu = True if torch.cuda.is_available() else False
@@ -96,9 +90,4 @@ def main():
     reader = easyocr.Reader(languages, gpu=gpu)
 
     print(f'работа с файлом...')
-    check_correct_file(path_pdf_file)
     convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, reader, method)
-
-
-if __name__ == "__main__":
-    main()

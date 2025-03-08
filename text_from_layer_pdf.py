@@ -1,6 +1,6 @@
 # pip install pdfplumber
 import pdfplumber
-from common_functions import write_text, check_correct_file, parse_terminal, check_correct_data
+from common_functions import write_text
 
 
 def convert_num_pages(first_page, last_page, pdf):
@@ -27,16 +27,17 @@ def convert_num_pages(first_page, last_page, pdf):
     return first_page, last_page
 
 
-def receive_text(path_pdf, first_page, last_page, method):
+def receive_text(path_pdf, first_page, last_page):
     """
     функция получает текст со страниц и записывает его в txt файл
 
     :param path_pdf: путь к pdf файлу
     :param first_page: первая страница
     :param last_page: последняя страница
-    :param method: метод получения текста (в данном случае с помощью доставания текстового слоя, [l])
+    method - метод получения текста (в данном случае с помощью доставания текстового слоя, [l])
     """
 
+    method = '[l]'
     with pdfplumber.open(path_pdf) as pdf:
         first_page, last_page = convert_num_pages(first_page, last_page, pdf)
 
@@ -49,27 +50,3 @@ def receive_text(path_pdf, first_page, last_page, method):
             write_text(path_pdf, f'\nКонец страницы {page + 1}{"_" * 50}\n', method)
 
             print(f'Конец страницы {page + 1} {"_" * 50}\n')
-
-
-def main():
-    """
-    first_page - первая страница
-    last_page - последняя страница
-    path_file - путь к pdf файлу
-    method = [l] - с помощью вытаскивания текстового слоя (layer)
-    """
-
-    data = parse_terminal()
-
-    first_page = data[0]
-    last_page = data[1]
-    path_file = data[-1]
-    method = '[l]'
-
-    check_correct_file(path_file)
-    check_correct_data(lang=None, path=path_file, first_page=first_page, last_page=last_page, is_check_lang=False)
-    receive_text(path_file, first_page, last_page, method)
-
-
-if __name__ == "__main__":
-    main()

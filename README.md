@@ -109,13 +109,12 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 <hr>
 <h4>Запуск программы.</h4>
 <ul>
-    <li>Программа запускается через терминал, ниже примеры запусков</li>
-    <li>python text_from_tesseract.py --languages rus eng --path test_files/file_1.pdf --first_page 1 --last_page 5</li>
-    <li>python text_from_easy_ocr.py --languages ru en --path test_files/file_1.pdf --first_page 1 --last_page 5</li>
-    <li>python text_from_layer_pdf.py --path test_files/file_1.pdf --first_page 1 --last_page 5</li>
+    <li>Программа запускается через терминал через main.py, ниже примеры запусков</li>
+    <li>python main.py --path test_files/file.pdf --method e --languages ru en --first_page 1 --last_page 5</li>
+    <li>python main.py --path test_files/file.pdf --method t --languages rus eng --first_page 1 --last_page 5</li>
+    <li>python main.py --path test_files/file.pdf --method l --first_page 1 --last_page 5</li>
     <br>
-    <li>--languages: языки в документе, которые надо распознать (обязательно к передаче в программу, если не запускаете text_from_layer_pdf.py)</li>
-    <li>при запуске text_from_layer_pdf.py языки передавать не нужно</li>
+    <li>--languages: языки в документе, которые надо распознать (обязательно к передаче в программу, если не запускаете метод layer (l))</li>
     <li>--path: путь к pdf файлу (обязательно к передаче в программу)</li>
     <li>--first_page: первая страница, с которой начать распознавание текста (необязательно к передаче, по дефолту стоит первая страница)</li>
     <li>--last_page: последняя страница, до которой распознавать текст (включительно), (необязательно к передаче, по дефолту стоит последняя страница в документу)</li>

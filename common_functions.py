@@ -14,20 +14,17 @@ def check_correct_file(path_file):
         quit('Ошибка: файл должен иметь расширение .pdf')
 
 
-def check_correct_data(lang, path, first_page, last_page, is_check_lang=True):
+def check_correct_data(first_page, last_page, lang=None, is_check_lang=False):
     """
     функция проверяет корректность переданных данных
-    :param lang: язык в документе
-    :param path: путь к pdf-файлу
     :param first_page: первая страница, с которой распознавать текст
     :param last_page: последняя страница, до которой распознавать текст (включительно)
-    :param is_check_lang: флаг на то что нужно ли проверять, переданы ли языки
+    :param lang: языки, который будут в документе
+    :param is_check_lang: надо ли проверять корректность передачи языков
 
     """
     if not lang and is_check_lang:
-        quit('ошибка: передайте язык/языки, который/которые нужно распознать в документе')
-    if path is None:
-        quit('ошибка: передайте путь к файлу, откуда нужно достать текст')
+        quit('ошибка: передайте языки')
     if first_page is not None and last_page is not None and first_page > last_page:
         quit('ошибка: номер последней страницы меньше первой')
 
@@ -51,15 +48,16 @@ def write_text(path_pdf_file, text, method):
 def parse_terminal():
     """получение данных с терминала через библиотеку argparse"""
     # примеры запусков программы через терминал:
-    # python text_from_tesseract.py --languages rus eng --path test_files/file_1.pdf --first_page 1 --last_page 5
-    # python text_from_easy_ocr.py --languages ru en --path test_files/file_1.pdf --first_page 1 --last_page 5
-    # python text_from_layer_pdf.py --path test_files/ReadA1.pdf
+    # python main.py --path test_files/file.pdf --method e --languages ru en --first_page 1 --last_page 5
+    # python main.py --path test_files/file.pdf --method t --languages rus eng --first_page 1 --last_page 5
+    # python main.py --path test_files/file.pdf --method l --first_page 1 --last_page 5
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--first_page', default=None, type=int)
     parser.add_argument('--last_page', default=None, type=int)
     parser.add_argument('--languages', nargs="*", default=[])
     parser.add_argument('--path', type=str, default='')
+    parser.add_argument('--method', type=str, default='')
 
     args = parser.parse_args()
-    return args.first_page, args.last_page, args.languages, args.path
+    return args.first_page, args.last_page, args.languages, args.path, args.method.lower()

@@ -57,7 +57,7 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, la
         os.remove(path_save)
 
 
-def main():
+def start_tesseract():
     """
     перед запуском программы настройте это:
 
@@ -84,4 +84,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    start_tesseract()
