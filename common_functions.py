@@ -14,17 +14,12 @@ def check_correct_file(path_file):
         quit('Ошибка: файл должен иметь расширение .pdf')
 
 
-def check_correct_data(first_page, last_page, lang=None, is_check_lang=False):
+def check_correct_data(first_page, last_page):
     """
     функция проверяет корректность переданных данных
     :param first_page: первая страница, с которой распознавать текст
     :param last_page: последняя страница, до которой распознавать текст (включительно)
-    :param lang: языки, который будут в документе
-    :param is_check_lang: надо ли проверять корректность передачи языков
-
     """
-    if not lang and is_check_lang:
-        quit('ошибка: передайте языки')
     if first_page is not None and last_page is not None and first_page > last_page:
         quit('ошибка: номер последней страницы меньше первой')
 
@@ -48,14 +43,14 @@ def write_text(path_pdf_file, text, method):
 def parse_terminal():
     """получение данных с терминала через библиотеку argparse"""
     # примеры запусков программы через терминал:
-    # python main.py --path test_files/file.pdf --method e --languages ru en --first_page 1 --last_page 5
-    # python main.py --path test_files/file.pdf --method t --languages rus eng --first_page 1 --last_page 5
+    # python main.py --path test_files/file.pdf --method e --first_page 1 --last_page 5
+    # python main.py --path test_files/file.pdf --method t --first_page 1 --last_page 5
     # python main.py --path test_files/file.pdf --method l --first_page 1 --last_page 5
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--first_page', default=None, type=int)
     parser.add_argument('--last_page', default=None, type=int)
-    parser.add_argument('--languages', nargs="*", default=[])
+    parser.add_argument('--languages', nargs="*", default=['en', 'ru'])
     parser.add_argument('--path', type=str, default='')
     parser.add_argument('--method', type=str, default='')
 

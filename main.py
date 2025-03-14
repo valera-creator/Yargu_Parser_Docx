@@ -31,12 +31,12 @@ def main():
 
     elif method == 'e':
         from text_from_easy_ocr import start_easy_ocr
-        check_correct_data(first_page, last_page, lang=languages, is_check_lang=True)
+        check_correct_data(first_page, last_page)
         start_easy_ocr(path, first_page, last_page, languages)
 
     elif method == 't':
         from text_from_tesseract import start_tesseract
-        check_correct_data(first_page, last_page, lang=languages, is_check_lang=True)
+        check_correct_data(first_page, last_page)
         start_tesseract(path, first_page, last_page, languages)
 
     else:

@@ -73,6 +73,6 @@ def start_tesseract(path_pdf_file, first_page, last_page, languages):
 
     image_folder = 'test_files'
     method = '[t]'
-    languages = '+'.join(languages)
+    languages = 'rus+eng' if sorted(languages) == ['en', 'ru'] else '+'.join(languages)
 
     convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, languages, method)

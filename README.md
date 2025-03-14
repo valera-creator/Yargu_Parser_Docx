@@ -79,10 +79,11 @@ tesseract --list-langs
 ```
     
 </li>
-<li>Языки (в Tesseract) также можно комбинировать, вот пример, как это можно сделать: "eng+rus"</li>
 <li>В Easyocr можно посмотреть языки здесь: https://www.jaided.ai/easyocr/</li>
-<li>Языки (в Easyocr) можно комбинировать, добавив в список несколько языков</li>
 <li>При распознавании с текстовым слоем (text_from_layer_pdf.py) язык передавать не нужно</li>
+<li>Для остальных методов распознавания по дефолту стоит русский и английский языки</li>
+<li>Если нужно распознавать только русский и английский языки, можно их не передавать</li>
+<li>Языков можно передать несколько в easyocr и tesseract</li>
 </ul>
 
 
@@ -122,11 +123,11 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 <h4>Запуск программы.</h4>
 <ul>
     <li>Программа запускается через терминал через main.py, ниже примеры запусков</li>
-    <li>python main.py --path test_files/file.pdf --method e --languages ru en --first_page 1 --last_page 5</li>
-    <li>python main.py --path test_files/file.pdf --method t --languages rus eng --first_page 1 --last_page 5</li>
+    <li>python main.py --path test_files/file.pdf --method e --first_page 1 --last_page 5</li>
+    <li>python main.py --path test_files/file.pdf --method t --languages afr amh --first_page 1 --last_page 5</li>
     <li>python main.py --path test_files/file.pdf --method l --first_page 1 --last_page 5</li>
     <br>
-    <li>--languages: языки в документе, которые надо распознать (обязательно к передаче в программу, если не запускаете метод layer (l))</li>
+    <li>--languages: языки в документе, которые надо распознать (по дефолту русский и английский, для метода layer (l) их не нужно передавать вообще)</li>
     <li>--path: путь к pdf файлу (обязательно к передаче в программу)</li>
     <li>--first_page: первая страница, с которой начать распознавание текста (необязательно к передаче, по дефолту стоит первая страница)</li>
     <li>--last_page: последняя страница, до которой распознавать текст (включительно), (необязательно к передаче, по дефолту стоит последняя страница в документу)</li>
