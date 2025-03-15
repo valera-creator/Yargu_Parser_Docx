@@ -1,4 +1,4 @@
-from common_functions import parse_terminal, check_correct_data, check_correct_file
+from common_functions import parse_terminal, check_correct_data
 
 
 def main():
@@ -22,25 +22,19 @@ def main():
     """
 
     first_page, last_page, languages, path, method = parse_terminal()
-    check_correct_file(path)
+    check_correct_data(first_page, last_page, method, path)
+    print('загрузка модулей...')
 
-    if method == 'l':
-        from text_from_layer_pdf import receive_text_from_layer
-        check_correct_data(first_page, last_page)
-        receive_text_from_layer(path, first_page, last_page)
-
-    elif method == 'e':
-        from text_from_easy_ocr import start_easy_ocr
-        check_correct_data(first_page, last_page)
-        start_easy_ocr(path, first_page, last_page, languages)
-
-    elif method == 't':
-        from text_from_tesseract import start_tesseract
-        check_correct_data(first_page, last_page)
-        start_tesseract(path, first_page, last_page, languages)
-
-    else:
-        print('метод распознавания не найден')
+    match method:
+        case 'l':
+            from text_from_layer_pdf import receive_text_from_layer
+            receive_text_from_layer(path, first_page, last_page)
+        case 'e':
+            from text_from_easy_ocr import start_easy_ocr
+            start_easy_ocr(path, first_page, last_page, languages)
+        case 't':
+            from text_from_tesseract import start_tesseract
+            start_tesseract(path, first_page, last_page, languages)
 
 
 if __name__ == "__main__":

@@ -1,8 +1,11 @@
 # pip install easyocr
 # pip install pdf2image
-import easyocr
+# pip install tqdm
+
 from pdf2image import convert_from_path
+from tqdm import tqdm
 from common_functions import write_text
+import easyocr
 import torch
 import os
 import re
@@ -22,7 +25,6 @@ def recognize_text_easy_ocr(path_pdf_file, path_image, reader, cur_page, method)
     :param method: метод распознавания текста (например, '[e]' для EasyOCR).
     """
 
-    print(f'Начало {cur_page} Страницы{"_" * 50}')
     text = reader.readtext(
         image=path_image,  # путь к изображению
         paragraph=True,  # объединение в параграфы
@@ -41,8 +43,6 @@ def recognize_text_easy_ocr(path_pdf_file, path_image, reader, cur_page, method)
         write_text(path_pdf_file, f'{elem.strip()}\n', method)
     write_text(path_pdf_file, f'\nКонец {cur_page} Страницы{"_" * 50}\n', method)
 
-    print(f'Конец {cur_page} Страницы{"_" * 50}\n')
-
 
 def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, reader, method):
     """
@@ -58,6 +58,8 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, re
     """
 
     images = convert_from_path(path_pdf_file, first_page=first_page, last_page=last_page, dpi=300)
+    progress_bar = tqdm(total=len(images), desc="Обработка страниц", unit="page", colour='green')
+
     for i, image in enumerate(images):
         if first_page is None:
             cur_page = i + 1
@@ -68,6 +70,9 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, re
         image.save(path_save, "PNG")
         recognize_text_easy_ocr(path_pdf_file, path_save, reader, cur_page, method)
         os.remove(path_save)
+
+        progress_bar.update(1)
+    progress_bar.close()
 
 
 def start_easy_ocr(path_pdf_file, first_page, last_page, languages):

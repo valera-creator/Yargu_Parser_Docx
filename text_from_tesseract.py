@@ -1,10 +1,12 @@
 # pip install pytesseract
+# pip install tqdm
 # python.exe -m pip install --upgrade pip
 # pip install pdf2image
 
 from PIL import Image
 from pdf2image import convert_from_path
 from common_functions import write_text
+from tqdm import tqdm
 import pytesseract
 import os
 
@@ -20,7 +22,6 @@ def recognize_text_tesseract(path_pdf_file, path_file, languages, cur_page, meth
     :param method: метод распознавания (например, [t] для tesseract)
     """
 
-    print(f'Начало {cur_page} Страницы{"_" * 50}')
     im = Image.open(path_file)
     text = str(pytesseract.image_to_string(im, lang=languages)).strip()
 
@@ -28,7 +29,6 @@ def recognize_text_tesseract(path_pdf_file, path_file, languages, cur_page, meth
     write_text(path_pdf_file, f'\nНачало {cur_page} Страницы{"_" * 50}\n', method)
     write_text(path_pdf_file, text, method)
     write_text(path_pdf_file, f'\nКонец {cur_page} Страницы{"_" * 50}\n', method)
-    print(f'Конец {cur_page} Страницы{"_" * 50}\n')
 
 
 def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, languages, method):
@@ -45,6 +45,8 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, la
     """
 
     images = convert_from_path(path_pdf_file, first_page=first_page, last_page=last_page, dpi=300)
+    progress_bar = tqdm(total=len(images), desc="Обработка страниц", unit="page", colour='green')
+
     for i, image in enumerate(images):
         if first_page is None:
             cur_page = i + 1
@@ -54,6 +56,9 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, la
         image.save(path_save, "PNG")
         recognize_text_tesseract(path_pdf_file, path_save, languages, cur_page, method)
         os.remove(path_save)
+
+        progress_bar.update(1)
+    progress_bar.close()
 
 
 def start_tesseract(path_pdf_file, first_page, last_page, languages):

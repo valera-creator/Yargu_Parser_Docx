@@ -2,26 +2,27 @@ import os
 import argparse
 
 
-def check_correct_file(path_file):
+def check_correct_data(first_page, last_page, method, path_file):
     """
-    проверка на то что файл существует и является pdf
+    функция проверяет корректность переданных данных и существование pdf файла
+    :param first_page: первая страница, с которой распознавать текст
+    :param last_page: последняя страница, до которой распознавать текст (включительно)
+    :param method: метод распознавания
     :param path_file: путь к pdf файлу
     """
 
+    if first_page is not None and last_page is not None and first_page > last_page:
+        quit('ошибка: номер последней страницы меньше первой')
+    if first_page is not None and first_page < 0:
+        quit('ошибка: номер первой страницы < 0')
+    if last_page is not None and last_page < 0:
+        quit('ошибка: номер последней страницы < 0')
+    if method not in ['l', 'e', 't']:
+        quit('ошибка: метод распознавания не найден среди "l", "e", "t"')
     if not os.path.exists(path_file):
         quit(f"Ошибка: pdf файл по пути {path_file} не найден.")
     if not path_file.endswith('.pdf'):
         quit('Ошибка: файл должен иметь расширение .pdf')
-
-
-def check_correct_data(first_page, last_page):
-    """
-    функция проверяет корректность переданных данных
-    :param first_page: первая страница, с которой распознавать текст
-    :param last_page: последняя страница, до которой распознавать текст (включительно)
-    """
-    if first_page is not None and last_page is not None and first_page > last_page:
-        quit('ошибка: номер последней страницы меньше первой')
 
 
 def write_text(path_pdf_file, text, method):
