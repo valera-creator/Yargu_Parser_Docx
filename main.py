@@ -25,9 +25,9 @@ def main():
     check_correct_file(path)
 
     if method == 'l':
-        from text_from_layer_pdf import receive_text
+        from text_from_layer_pdf import receive_text_from_layer
         check_correct_data(first_page, last_page)
-        receive_text(path, first_page, last_page)
+        receive_text_from_layer(path, first_page, last_page)
 
     elif method == 'e':
         from text_from_easy_ocr import start_easy_ocr

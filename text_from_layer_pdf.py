@@ -27,7 +27,7 @@ def convert_num_pages(first_page, last_page, pdf):
     return first_page, last_page
 
 
-def receive_text(path_pdf_file, first_page, last_page):
+def receive_text_from_layer(path_pdf_file, first_page, last_page):
     """
     Функция извлекает текст из указанных страниц PDF-файла и записывает его в текстовый файл.
     Результат записывается в текстовый файл с тем же именем, что и PDF-файл, но с расширением .txt.
