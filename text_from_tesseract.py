@@ -1,12 +1,10 @@
 # pip install pytesseract
-# pip install tqdm
 # python.exe -m pip install --upgrade pip
 # pip install pdf2image
 
 from PIL import Image
 from pdf2image import convert_from_path
 from common_functions import write_text
-from tqdm import tqdm
 import pytesseract
 import os
 
@@ -31,7 +29,7 @@ def recognize_text_tesseract(path_pdf_file, path_file, languages, cur_page, meth
     write_text(path_pdf_file, f'\nКонец {cur_page} Страницы{"_" * 50}\n', method)
 
 
-def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, languages, method):
+def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, languages, method, progress_bar):
     """
     Функция конвертирует страницы PDF-файла в изображения и распознает текст с каждой страницы,
     передавая в функцию recognize_text изображения и другие параметры для распознавания текста
@@ -42,10 +40,11 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, la
     :param image_folder: путь, где будут лежать картинки-страницы pdf файла
     :param languages: языки, которые могут быть в файле
     :param method: метод распознавания (например, [t] для tesseract)
+    :param progress_bar: progressbar для отображения прогресса обработанных страниц
     """
 
     images = convert_from_path(path_pdf_file, first_page=first_page, last_page=last_page, dpi=300)
-    progress_bar = tqdm(total=len(images), desc="Обработка страниц", unit="page", colour='green')
+    progress_bar.total = len(images)
 
     for i, image in enumerate(images):
         if first_page is None:
@@ -56,12 +55,10 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, la
         image.save(path_save, "PNG")
         recognize_text_tesseract(path_pdf_file, path_save, languages, cur_page, method)
         os.remove(path_save)
-
         progress_bar.update(1)
-    progress_bar.close()
 
 
-def start_tesseract(path_pdf_file, first_page, last_page, languages):
+def start_tesseract(path_pdf_file, first_page, last_page, languages, progress_bar):
     """
     Функция инициализирует процесс конвертации PDF-файла в изображения и распознавания текста
     с помощью библиотеки pytesseract. Распознанный текст записывается в текстовый файл.
@@ -74,10 +71,11 @@ def start_tesseract(path_pdf_file, first_page, last_page, languages):
     :param first_page: первая страница, с которой распознавать текст
     :param last_page: последняя страница, до которой распознавать текст (включительно)
     :param languages: языки, которые искать в документе
+    :param progress_bar: progressbar для отображения прогресса обработанных страниц
     """
 
     image_folder = 'test_files'
     method = '[t]'
     languages = 'rus+eng' if sorted(languages) == ['en', 'ru'] else '+'.join(languages)
 
-    convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, languages, method)
+    convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, languages, method, progress_bar)

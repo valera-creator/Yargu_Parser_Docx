@@ -1,9 +1,7 @@
 # pip install easyocr
 # pip install pdf2image
-# pip install tqdm
 
 from pdf2image import convert_from_path
-from tqdm import tqdm
 from common_functions import write_text
 import easyocr
 import torch
@@ -44,7 +42,7 @@ def recognize_text_easy_ocr(path_pdf_file, path_image, reader, cur_page, method)
     write_text(path_pdf_file, f'\nКонец {cur_page} Страницы{"_" * 50}\n', method)
 
 
-def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, reader, method):
+def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, reader, method, progress_bar):
     """
     Функция конвертирует страницы PDF-файла в изображения и распознает текст с каждой страницы,
     передавая в функцию recognize_text изображения и другие параметры для распознавания текста
@@ -55,10 +53,11 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, re
     :param image_folder: путь, где будут лежать картинки-страницы pdf файла
     :param reader - объект reader для распознавания
     :param method: метод распознавания текста (например, '[e]' для EasyOCR).
+    :param progress_bar: progressbar для отображения прогресса обработанных страниц
     """
 
     images = convert_from_path(path_pdf_file, first_page=first_page, last_page=last_page, dpi=300)
-    progress_bar = tqdm(total=len(images), desc="Обработка страниц", unit="page", colour='green')
+    progress_bar.total = len(images)
 
     for i, image in enumerate(images):
         if first_page is None:
@@ -70,12 +69,10 @@ def convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, re
         image.save(path_save, "PNG")
         recognize_text_easy_ocr(path_pdf_file, path_save, reader, cur_page, method)
         os.remove(path_save)
-
         progress_bar.update(1)
-    progress_bar.close()
 
 
-def start_easy_ocr(path_pdf_file, first_page, last_page, languages):
+def start_easy_ocr(path_pdf_file, first_page, last_page, languages, progress_bar):
     """
     Функция:
     1) Инициализирует объект EasyOCR
@@ -92,6 +89,7 @@ def start_easy_ocr(path_pdf_file, first_page, last_page, languages):
     :param first_page: первая страница, с которой распознавать текст
     :param last_page: последняя страница, до которой распознавать текст (включительно)
     :param languages: языки, которые искать в документе
+    :param progress_bar: progressbar для отображения прогресса обработанных страниц
     """
 
     method = '[e]'
@@ -104,4 +102,4 @@ def start_easy_ocr(path_pdf_file, first_page, last_page, languages):
     reader = easyocr.Reader(languages, gpu=gpu)
 
     print(f'работа с файлом...')
-    convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, reader, method)
+    convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, reader, method, progress_bar)

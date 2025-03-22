@@ -1,8 +1,6 @@
 # pip install pdfplumber
-# pip install tqdm
 
 import pdfplumber
-from tqdm import tqdm
 from common_functions import write_text
 
 
@@ -30,7 +28,7 @@ def convert_num_pages(first_page, last_page, pdf):
     return first_page, last_page
 
 
-def receive_text_from_layer(path_pdf_file, first_page, last_page):
+def receive_text_from_layer(path_pdf_file, first_page, last_page, progress_bar):
     """
     Функция извлекает текст из указанных страниц PDF-файла и записывает его в текстовый файл.
     Результат записывается в текстовый файл с тем же именем, что и PDF-файл, но с расширением .txt.
@@ -38,13 +36,12 @@ def receive_text_from_layer(path_pdf_file, first_page, last_page):
     :param path_pdf_file: путь к pdf файлу
     :param first_page: первая страница
     :param last_page: последняя страница
+    :param progress_bar: progressbar для отображения прогресса обработанных страниц
 
     method - метод получения текста (в данном случае с помощью доставания текстового слоя, [l])
-    progress_bar - объект для отображения прогресса обработанных страниц
     """
 
     method = '[l]'
-    progress_bar = tqdm(desc="Обработка страниц", unit="page", colour='green')
     with pdfplumber.open(path_pdf_file) as pdf:
         first_page, last_page = convert_num_pages(first_page, last_page, pdf)
         progress_bar.total = last_page - first_page
@@ -56,4 +53,3 @@ def receive_text_from_layer(path_pdf_file, first_page, last_page):
             write_text(path_pdf_file, f'\nКонец страницы {page + 1}{"_" * 50}\n', method)
 
             progress_bar.update(1)
-    progress_bar.close()

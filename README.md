@@ -116,6 +116,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 ```
     
 </li>
+<li>Если с этой версией возникли ошибки изначально, то необходимо скачать версии torch без "+cu...".</li>
 
 
 </ul>
