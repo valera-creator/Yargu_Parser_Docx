@@ -94,12 +94,7 @@ def start_easy_ocr(path_pdf_file, first_page, last_page, languages, progress_bar
 
     method = '[e]'
     image_folder = 'test_files'
-
-    print('проверка доступа gpu...')
     gpu = True if torch.cuda.is_available() else False
-
-    print('запуск reader...')
     reader = easyocr.Reader(languages, gpu=gpu)
 
-    print(f'работа с файлом...')
     convert_pdf_to_images(first_page, last_page, path_pdf_file, image_folder, reader, method, progress_bar)

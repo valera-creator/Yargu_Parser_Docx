@@ -17,9 +17,10 @@ def gef_function(method):
             return start_tesseract
 
 
-def customize_progress_bar_for_pages(progress_bar):
+def customize_progress_bar_for_pages(progress_bar, percent_progress_bar):
     """настройка значений progressbar под страницы"""
-    progress_bar.total = 0
+    progress_bar.update(-percent_progress_bar)
+    progress_bar.total = 1
     progress_bar.desc = 'Обработка страниц'
     progress_bar.unit = 'page'
     progress_bar.colour = 'green'
@@ -40,6 +41,7 @@ def main():
     method - метод распознавания текста.
     progress_bar - объект progressbar для отображения процесса показа
     process_function - функция для распознавания
+    percent_progress_bar - процесс показывания загрузки модулей
 
     Допустимые значения method:
     1. 'l' (layer): Встроенный метод извлечения текста из PDF.
@@ -49,9 +51,12 @@ def main():
 
     first_page, last_page, languages, path, method = parse_terminal()
     check_correct_data(first_page, last_page, method, path)
-    progress_bar = tqdm(desc="Загрузка модулей...", unit="iter", colour='blue')
+    percent_progress_bar = 30
+    progress_bar = tqdm(initial=percent_progress_bar, total=100, desc="Загрузка модулей...", unit="%", colour='blue',
+                        leave=False)
+
     process_function = gef_function(method=method)
-    customize_progress_bar_for_pages(progress_bar)
+    customize_progress_bar_for_pages(progress_bar, percent_progress_bar)
 
     if method == 'l':
         process_function(first_page=first_page, last_page=last_page, path_pdf_file=path, progress_bar=progress_bar)
