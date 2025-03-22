@@ -53,7 +53,8 @@ def parse_terminal():
     parser.add_argument('--last_page', default=None, type=int)
     parser.add_argument('--languages', nargs="*", default=['en', 'ru'])
     parser.add_argument('--path', type=str, default='')
-    parser.add_argument('--method', type=str, default='')
+    parser.add_argument('--method', type=str, default='',
+                        help='обозначение методов распознавания: "e" - easyocr, "t" - tesseract, "l" - текстовый слой')
 
     args = parser.parse_args()
     return args.first_page, args.last_page, args.languages, args.path, args.method.lower()
